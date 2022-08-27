@@ -1,0 +1,45 @@
+{% set name = "btyd" %}
+{% set version = "0.1b1" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/btyd-{{ version }}.tar.gz
+  sha256: 0157776e02556faa23fdf1f7305e42ef4b7cb8ac5ff0841ab396abddf894b71b
+
+build:
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv
+  number: 0
+
+requirements:
+  host:
+    - python >=3.6,<3.10
+    - pip
+  run:
+    - python >=3.6,<3.10
+    - autograd ==1.4
+    - dill ==0.3.5.1
+    - numpy >=1.20.0,<2.0.0
+    - pymc >=4.0.0,<5.0.0
+
+test:
+  imports:
+    - btyd
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://pypi.org/project/btyd/
+  summary: Buy Till You Die and Customer Lifetime Value statistical models in Python.
+  license: Apache-2.0
+  license_file:
+    - LICENSE
+
+extra:
+  recipe-maintainers:
+    - sudarsan-surendralal
